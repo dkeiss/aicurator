@@ -1,0 +1,17 @@
+@startuml
+participant Frontend
+participant Backend
+
+Frontend -> Backend: send login data
+activate Backend
+Backend -> Backend: Create JWT with 'secret'
+Backend --> Frontend: return JWT
+deactivate Backend
+
+Frontend -> Backend: send taxi search request with JWT
+activate Backend
+Backend -> Backend: Validate JWT
+Backend -> Backend: Reserve Taxi
+Backend --> Frontend: return available taxis
+deactivate Backend
+@enduml

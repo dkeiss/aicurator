@@ -1,0 +1,7 @@
+# Project exclude paths
+*.iml
+/.idea/*
+**/target/*
+**/node_modules/*
+/package-lock.json
+**/pom.xml.versionsBackup

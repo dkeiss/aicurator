@@ -1,0 +1,197 @@
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+button {
+    display: block;
+    margin-top: 10px;
+}
+
+.card-container.card {
+    max-width: 350px !important;
+    padding: 40px 40px;
+}
+
+.card {
+    background-color: #f7f7f7;
+    padding: 20px 25px 30px;
+    margin: 50px auto 25px;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    border-radius: 50%;
+}
+
+.Modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.open-modal-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.close-modal-button {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.fancy-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s ease;
+    padding: 20px 25px 30px;
+    margin: 50px auto 25px;
+}
+
+.profile-img-container {
+    margin-bottom: 1rem;
+}
+
+.fancy-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px;
+    color: #888;
+}
+
+.fancy-input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.fancy-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.button-container {
+    text-align: center;
+}
+
+.fancy-button {
+    background: linear-gradient(90deg, #888888, #5c636a);
+    border: none;
+    padding: 12px 20px;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.fancy-button-google {
+    background: linear-gradient(90deg, #f9fafb, #c6c7c8);
+    border: none;
+    padding: 6px 12px;
+    color: #000000;
+    font-size: 1rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.fancy-button:hover {
+    background: linear-gradient(90deg, #5c636a, #888888);
+}
+
+.message-container {
+    margin-top: 1rem;
+}
+
+.alert {
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.time-fields {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-field {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.time-field:last-child {
+    margin-right: 0;
+}
+
+.button-container {
+    text-align: right;
+}
