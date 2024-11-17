@@ -1,0 +1,22 @@
+@startuml
+package "Config" {
+}
+
+package "Store" {
+}
+
+package "Pages" {
+}
+
+package "Steps" {
+}
+
+package "Features" {
+}
+
+Config --> Steps : "configures"
+Steps --> Pages : "page mapping"
+Steps --> Store : "stores test data"
+Features --> Steps : "orchestrate to scenarios"
+
+@enduml
