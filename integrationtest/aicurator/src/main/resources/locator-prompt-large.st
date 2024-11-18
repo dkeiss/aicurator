@@ -26,12 +26,12 @@ Follow these steps to resolve the issue:
 2. Examine the HTML body to locate the element in question.
 3. Review the page source code and Cucumber step code to understand the context of the test.
 4. Create a new, unique, and stable locator for the element. Consider using ID, name, or a combination of attributes that are unlikely to change.
-5. Update the page source code with the new locator.
+5. Update the page source code with the new locator. Complex locators should use XPath.
 6. Provide a brief explanation of the changes made and why the new locator is more reliable.
 
 Return the following attributes in the response:
-1. "explanation": A brief explanation of the changes and reasoning
-2. "locator": The new, working locator you've created
-3. "pageSourceCode": The updated page source code with the new locator
+1. "explanation": A brief explanation of the changes and reasoning.
+2. "locator": The new, working locator you've created. Use the format "By.<locatorType>(<locatorValue>)".
+3. "pageSourceCode": The updated page source code with the new locator.
 
 {format}

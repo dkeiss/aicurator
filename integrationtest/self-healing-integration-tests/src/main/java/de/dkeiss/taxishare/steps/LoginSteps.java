@@ -53,8 +53,8 @@ public class LoginSteps extends AbstractSteps {
         theUserLogsIn();
     }
 
-    @Given("clean session")
-    public void cleanSession() {
+    @Given("a new browser session")
+    public void newBrowserSession() {
         webDriverWrapper.getDriver().manage().deleteAllCookies();
     }
 

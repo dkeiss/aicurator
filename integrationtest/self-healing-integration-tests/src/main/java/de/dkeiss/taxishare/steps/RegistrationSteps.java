@@ -1,7 +1,7 @@
 package de.dkeiss.taxishare.steps;
 
 import com.github.javafaker.Faker;
-import de.dkeiss.taxishare.pages.RegisterPage;
+import de.dkeiss.taxishare.pages.RegistrationPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,22 +13,22 @@ public class RegistrationSteps extends AbstractSteps {
 
     private final Faker faker = Faker.instance();
 
-    @Given("the register page is open")
-    public void theRegisterPageIsOpen() {
-        openRelative(RegisterPage.URL);
-        expectPage(RegisterPage.class);
+    @Given("the registration page is open")
+    public void theRegistrationPageIsOpen() {
+        openRelative(RegistrationPage.URL);
+        expectPage(RegistrationPage.class);
     }
 
-    @Given("the register page v2 is open")
+    @Given("the registration page v2 is open")
     public void theRegisterPageV2IsOpen() {
-        openRelative(RegisterPage.URL_V2);
-        expectPage(RegisterPage.class);
+        openRelative(RegistrationPage.URL_V2);
+        expectPage(RegistrationPage.class);
     }
 
     @When("the user registers")
     public void theUserRegisters() {
-        RegisterPage registerPage = getCurrentPage();
-        registerPage.register(
+        RegistrationPage registrationPage = getCurrentPage();
+        registrationPage.register(
                 faker.name().username(),
                 faker.internet().emailAddress(),
                 faker.internet().password());
@@ -36,8 +36,8 @@ public class RegistrationSteps extends AbstractSteps {
 
     @Then("the registration is successful")
     public void theRegistrationIsSuccessful() {
-        RegisterPage registerPage = getCurrentPage();
-        String registrationSuccessMessage = registerPage.getRegistrationSuccessMessage();
+        RegistrationPage registrationPage = getCurrentPage();
+        String registrationSuccessMessage = registrationPage.getRegistrationSuccessMessage();
         assertEquals("User registered successfully!", registrationSuccessMessage);
     }
 
