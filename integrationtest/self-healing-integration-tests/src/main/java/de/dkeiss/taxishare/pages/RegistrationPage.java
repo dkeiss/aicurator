@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class RegisterPage extends AbstractPage {
+public class RegistrationPage extends AbstractPage {
 
     public static final String URL = "register";
     public static final String URL_V2 = "registerV2";
@@ -24,7 +24,7 @@ public class RegisterPage extends AbstractPage {
     @FindBy(className = "alert-success")
     private WebElement alertSuccess;
 
-    public RegisterPage(WebDriver driver) {
+    public RegistrationPage(WebDriver driver) {
         super(driver);
     }
 

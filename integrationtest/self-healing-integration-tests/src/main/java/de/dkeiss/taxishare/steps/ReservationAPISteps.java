@@ -48,8 +48,8 @@ public class ReservationAPISteps extends AbstractSteps {
                 .build();
     }
 
-    @Given("available reservations from another user")
-    public void availableReservation(List<Reservation> reservations) {
+    @Given("there are available reservations from another user")
+    public void availableReservationFromAnotherUser(List<Reservation> reservations) {
         for (Reservation reservation : reservations) {
             availableReservation(reservation);
         }

@@ -12,7 +12,7 @@ public class RegistrationAPISteps extends AbstractSteps {
 
     private final Faker faker = Faker.instance();
 
-    @Given("new registered user")
+    @Given("a new registered user")
     public void newRegisteredUser() {
         User user = new User(
                 faker.name().username(),

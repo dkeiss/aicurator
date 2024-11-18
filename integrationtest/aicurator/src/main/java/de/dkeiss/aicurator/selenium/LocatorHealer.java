@@ -12,6 +12,7 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -53,38 +54,27 @@ public class LocatorHealer {
     }
 
     private Optional<By> constructLocator(String fixedLocator) {
-        if (fixedLocator.contains("name")) {
-            return Optional.of(By.name(extractValue("name", fixedLocator)));
-        } else if (fixedLocator.contains("id")) {
-            return Optional.of(By.id(extractValue("id", fixedLocator)));
-        } else if (fixedLocator.contains("xpath")) {
-            return Optional.of(By.xpath(extractValue("xpath", fixedLocator)));
-        } else if (fixedLocator.contains("cssSelector")) {
-            return Optional.of(By.cssSelector(extractValue("cssSelector", fixedLocator)));
-        } else if (fixedLocator.contains("linkText")) {
-            return Optional.of(By.linkText(extractValue("linkText", fixedLocator)));
-        } else if (fixedLocator.contains("partialLinkText")) {
-            return Optional.of(By.partialLinkText(extractValue("partialLinkText", fixedLocator)));
-        } else if (fixedLocator.contains("tagName")) {
-            return Optional.of(By.tagName(extractValue("tagName", fixedLocator)));
-        } else if (fixedLocator.contains("className")) {
-            return Optional.of(By.className(extractValue("className", fixedLocator)));
-        } else if (fixedLocator.contains(".") || fixedLocator.contains("#")) {
-            return Optional.of(By.cssSelector(fixedLocator));
-        } else if (!fixedLocator.isEmpty()) {
-            return Optional.of(By.cssSelector(fixedLocator));
+        if (fixedLocator.startsWith("By.")) {
+            return Optional.of(createBy(fixedLocator));
         }
         return Optional.empty();
     }
 
-    private String extractValue(String name, String locator) {
-        String regex = name + "\\s*=\\s*\"([^\"]*)\"";
+    @SneakyThrows
+    public By createBy(String byString) {
+        String regex = "By\\.(\\w+)\\(\"([^\"]*)\"\\)";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(locator);
+        Matcher matcher = pattern.matcher(byString);
+
         if (matcher.find()) {
-            return matcher.group(1);
+            String methodName = matcher.group(1);
+            String value = matcher.group(2);
+
+            Method method = By.class.getMethod(methodName, String.class);
+            return (By) method.invoke(null, value);
         }
-        return null;
+
+        throw new IllegalArgumentException("Invalid By string: " + byString);
     }
 
 }

@@ -5,34 +5,38 @@ Feature: Login
 
   Background:
     Given self-healing for locators is enabled
-    And new registered user
-    And clean session
+    And a new registered user
+    And a new browser session
 
-  Scenario: Login
-    # This scenario don't need self-healing
+  Scenario: Login (V1)
+    # This scenario doesn't need self-healing
     Given the login page is open
     When the user logs in
     Then the reservation page is shown
 
-  Scenario: Login v2 with changed username field
-    # In this scenario the username change field is changed to email
-    # Semantically the field is the same, the self-healing should use the email field
+  Scenario: Login (V2)
+    # This scenario need self-healing
+    # 1. The username field name is changed to email
     Given the login page v2 is open
     When the user logs in with email
     Then the reservation page is shown
 
-  Scenario: Login v3 with login button and additional google login button
-    # In this scenario we have a different layout which should not affect the test
-    # The login button is changed from class to an ID and we have an additional google login button with ID
-    # The self-healing should use login button by ID and not the google login button
+  Scenario: Login (V3)
+    # This scenario need self-healing
+    # 1. The style is changed
+    # 2. Login button uses a different class and has an ID which should be used
+    # 3. Google login button with ID is added
     Given the login page v3 is open
     When the user logs in with email
     Then the reservation page is shown
 
-  Scenario: Login v4 with changed login button and additional google login button, tricked against Healenium
-    # In this scenario we have a different layout which should not affect the test
-    # The login button is changed from class to an ID and we have an additional google login button without ID
-    # This is an an adjusted scenario to fail Healenium since it will give the google button an higher rank because of the missing ID like in the last successful locator
+  Scenario: Login (V4)
+    # This scenario need self-healing
+    # 1. The style is changed
+    # 2. Login button uses a different class and has an ID which should be used
+    # 3. Google login button without ID is added
+    # This is an adjusted scenario designed to fail Healenium
+    # It will give the Google button a higher rank because of the missing ID, similar to the last successful locator
     Given the login page v4 is open
     When the user logs in with email
     Then the reservation page is shown

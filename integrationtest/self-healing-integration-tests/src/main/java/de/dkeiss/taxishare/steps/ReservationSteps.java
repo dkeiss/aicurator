@@ -14,8 +14,8 @@ import static org.junit.Assert.assertTrue;
 
 public class ReservationSteps extends AbstractSteps {
 
-    @When("search for a taxi")
-    public void searchForTaxi(List<ReservationSearch> reservationSearches) {
+    @When("searching for a taxi")
+    public void searchingForTaxi(List<ReservationSearch> reservationSearches) {
         ReservationSearch reservationSearch = reservationSearches.getFirst();
         ReservationPage reservationPage = expectPage(ReservationPage.class);
         reservationPage.setDate(reservationSearch.date());
@@ -27,33 +27,33 @@ public class ReservationSteps extends AbstractSteps {
     }
 
 
-    @When("reservation is done")
-    public void reservationIsDone() {
+    @When("a reservation is made")
+    public void reservationIsMade() {
         ReservationPage reservationPage = expectPage(ReservationPage.class);
         reservationPage.submitReservation();
     }
 
-    @When("join first reservation")
-    public void joinFirstReservation() {
+    @When("joining the first reservation")
+    public void joiningTheFirstReservation() {
         ReservationPage reservationPage = expectPage(ReservationPage.class);
         Long id = scenarioStore.getReservation().id();
         reservationPage.clickJoinButton(id);
     }
 
-    @Then("reserve is visible")
-    public void reserveIsVisible() {
+    @Then("the reserve option is visible")
+    public void reserveOptionIsVisible() {
         ReservationPage reservationPage = expectPage(ReservationPage.class);
         assertTrue(reservationPage.reverseButtonIsDisplayed());
     }
 
-    @Then("reserve is invisible")
-    public void reserveIsInvisible() {
+    @Then("the reserve option is invisible")
+    public void reserveOptionIsInvisible() {
         ReservationPage reservationPage = expectPage(ReservationPage.class);
         assertFalse(reservationPage.reverseButtonIsDisplayed());
     }
 
-    @Then("reservation is created successfully")
-    public void reservationIsCreatedSuccessfully() {
+    @Then("the reservation is shown in the list")
+    public void reservationIsShowInTheList() {
         ReservationPage reservationPage = expectPage(ReservationPage.class);
         assertThat(reservationPage.getAlertSuccessMessage()).contains("Reservation created successfully");
         String reservationId = reservationPage.getReservationId(0);
@@ -66,20 +66,20 @@ public class ReservationSteps extends AbstractSteps {
         assertThat(reservationPage.getReservations().isEmpty()).isFalse();
     }
 
-    @Then("join is invisible")
-    public void joinIsInvisible() {
+    @Then("the join option is invisible")
+    public void joinOptionIsInvisible() {
         ReservationPage reservationPage = expectPage(ReservationPage.class);
         Long id = scenarioStore.getReservation().id();
         assertFalse(reservationPage.joinButtonExists(id));
     }
 
-    @Then("the current user is added to participants")
-    public void theCurrentUserIsAddedToParticipants() {
+    @Then("the current user is added to the participants")
+    public void theCurrentUserIsAddedToTheParticipants() {
         ReservationPage reservationPage = expectPage(ReservationPage.class);
         assertThat(reservationPage.getReservations().get(1)).contains(scenarioStore.getUser().username());
     }
 
-    @Then("join notification is shown")
+    @Then("a join notification is shown")
     public void joinNotificationIsShown() {
         ReservationPage reservationPage = expectPage(ReservationPage.class);
         assertThat(reservationPage.getAlertInfoMessage()).contains("There is an update for your reservation");
