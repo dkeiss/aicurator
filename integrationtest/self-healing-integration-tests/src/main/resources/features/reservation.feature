@@ -45,7 +45,7 @@ Feature: Reservation
     And there are available reservations from another user
       | departure | destination | date       | startTime |
       | Station A | Station B   | 2024-11-07 | 10:00     |
-    And the reservation page v2 is shown
+    And the reservation page is shown
     When searching for a taxi
       | departure | destination | date       | earliestStartTime | latestStartTime |
       | Station A | Station B   | 07.11.2024 | 09:00             | 11:00           |
