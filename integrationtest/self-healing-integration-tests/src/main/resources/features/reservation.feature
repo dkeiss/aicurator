@@ -7,7 +7,7 @@ Feature: Reservation
     Given self-healing for locators is enabled
     And a logged-in customer
 
-  Scenario: Make a reservation when no taxis are available and get updates when someone joins (V1)
+  Scenario: Made a reservation and get updates (V1)
     # This scenario doesn't need self-healing
     Given no reservations exist
     And the reservation page is shown
@@ -22,7 +22,7 @@ Feature: Reservation
     When somebody joins the reservation
     Then a join notification is shown
 
-  Scenario: Make a reservation when no taxis are available and get updates when someone joins (V2)
+  Scenario: Made a reservation and get updates (V2)
     # This scenario needs self-healing
     # 1. The ID for the search button is no longer available; only type and name are present.
     # 2. The ID for the visible reserve button is no longer available; only type and name are present.
