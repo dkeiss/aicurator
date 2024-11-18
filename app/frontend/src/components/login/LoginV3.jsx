@@ -33,13 +33,33 @@ const LoginV3 = ({handleLogin, loading, message}) => {
                     {errors.password && (
                         <div className="alert alert-danger">{errors.password.message}</div>
                     )}
-                    <button className="fancy-button" disabled={loading}>
+                    <button id={"login-button"} className="fancy-button" disabled={loading}>
                         {loading && <span className="spinner-border spinner-border-sm"></span>}
                         <span>Login</span>
                     </button>
                 </div>
                 {message && <div className="alert alert-danger">{message}</div>}
             </form>
+
+            <button
+                id={"google-login-button"}
+                className="fancy-button-google"
+                disabled={loading}
+                onClick={() => alert("Not Implemented")}
+            >
+                {loading && (
+                    <span className="spinner-border spinner-border-sm"></span>
+                )}
+                <span>
+                    <span style={{color: "#4285F4"}}>G</span>
+                    <span style={{color: "#EA4335"}}>o</span>
+                    <span style={{color: "#FBBC05"}}>o</span>
+                    <span style={{color: "#4285F4"}}>g</span>
+                    <span style={{color: "#34A853"}}>l</span>
+                    <span style={{color: "#EA4335"}}>e</span>
+                    -Login
+                </span>
+            </button>
         </div>
     );
 };
