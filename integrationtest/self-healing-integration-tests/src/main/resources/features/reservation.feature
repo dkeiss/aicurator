@@ -24,8 +24,8 @@ Feature: Reservation
 
   Scenario: Make a reservation when no taxis are available and get updates when someone joins (V2)
     # This scenario needs self-healing
-    # 1. The IDs for search and reservation are not available anymore
-    # 2. A complex CSS locator is required to access the elements
+    # 1. The ID for the search button is no longer available; only type and name are present.
+    # 2. The ID for the visible reserve button is no longer available; only type and name are present.
     Given no reservations exist
     And the reservation page v2 is shown
     When searching for a taxi
@@ -56,9 +56,8 @@ Feature: Reservation
 
   Scenario: Search for available taxis and join (V2)
     # This scenario needs self-healing
-    # The IDs for search and reservation are not available anymore
-    # A complex CSS locator is required to access the elements
-    # It is more difficult for auto-healing since the reserve option is invisible
+    # 1. The ID for the search button is no longer available; only type and name are present.
+    # 2. The ID for the invisible reserve button is no longer available; only type and name are present.
     Given no reservations exist
     And there are available reservations from another user
       | departure | destination | date       | startTime |
