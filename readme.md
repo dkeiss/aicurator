@@ -22,7 +22,7 @@ Alternatively, modify `ChatClientConfig.java`.
 Start the backend by running the `TaxiApplication` class.
 Start the frontend by running `npm start` in the `frontend` directory.
 
-Or just run the `docker-compose up` command in the root directory (there is currently an issue with the frontend here).
+Or just run the `docker-compose up` command in the root directory.
 
 ## Run the Self-Healing Integration Tests
 
