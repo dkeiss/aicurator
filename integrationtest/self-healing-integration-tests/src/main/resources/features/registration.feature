@@ -15,8 +15,7 @@ Feature: Registration
   Scenario: Registration (V2)
     # This scenario need self-healing
     # 1. The style is changed
-    # 2. The username field name is changed to email
-    # 3. The the button uses different classes
+    # 2. The the button uses different classes
     Given the registration page v2 is open
     When the user registers
     Then the registration is successful
