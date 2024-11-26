@@ -13,6 +13,5 @@ public record ReservationSearchDTO(String username,
                                    @NotBlank String departure,
                                    @NotBlank String destination,
                                    @NotNull LocalTime earliestStartTime,
-                                   @NotNull LocalTime latestStartTime,
-                                   String message) {
+                                   @NotNull LocalTime latestStartTime) {
 }

@@ -2,11 +2,11 @@ package de.dkeiss.taxishare.steps;
 
 import de.dkeiss.taxishare.pages.ReservationPage;
 import de.dkeiss.taxishare.steps.dto.Reservation;
-import de.dkeiss.taxishare.steps.dto.ReservationSearch;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.assertFalse;
@@ -15,17 +15,16 @@ import static org.junit.Assert.assertTrue;
 public class ReservationSteps extends AbstractSteps {
 
     @When("searching for a taxi")
-    public void searchingForTaxi(List<ReservationSearch> reservationSearches) {
-        ReservationSearch reservationSearch = reservationSearches.getFirst();
+    public void searchingForTaxi(List<Map<String, String>> reservationSearches) {
+        Map<String, String> entry = reservationSearches.getFirst();
         ReservationPage reservationPage = expectPage(ReservationPage.class);
-        reservationPage.setDate(reservationSearch.date());
-        reservationPage.setDeparture(reservationSearch.departure());
-        reservationPage.setEarliestStartTime(reservationSearch.earliestStartTime());
-        reservationPage.setDestination(reservationSearch.destination());
-        reservationPage.setLatestStartTime(reservationSearch.latestStartTime());
+        reservationPage.setDate(entry.get("date"));
+        reservationPage.setDeparture(entry.get("departure"));
+        reservationPage.setEarliestStartTime(entry.get("earliestStartTime"));
+        reservationPage.setDestination(entry.get("destination"));
+        reservationPage.setLatestStartTime(entry.get("latestStartTime"));
         reservationPage.submitSearch();
     }
-
 
     @When("a reservation is made")
     public void reservationIsMade() {
