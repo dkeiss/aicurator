@@ -26,15 +26,15 @@ class ReservationService {
     }
 
     searchReservations(date, earliestStartTime, latestStartTime, departure, destination) {
-        const searchCriteria = {
-            date,
-            earliestStartTime,
-            latestStartTime,
-            departure,
-            destination
-        };
+        const queryParams = new URLSearchParams({
+            date: btoa(date),
+            earliestStartTime: btoa(earliestStartTime),
+            latestStartTime: btoa(latestStartTime),
+            departure: btoa(departure),
+            destination: btoa(destination)
+        });
 
-        return axios.post(`${API_URL}/search`, searchCriteria, CONFIG)
+        return axios.get(`${API_URL}?${queryParams.toString()}`, CONFIG)
             .then(response => {
                 return response.data;
             })
@@ -44,7 +44,7 @@ class ReservationService {
     }
 
     joinReservation(reservationId) {
-        return axios.post(`${API_URL}/${reservationId}/join`, {}, CONFIG)
+        return axios.put(`${API_URL}/${reservationId}`, {}, CONFIG)
             .then(response => {
                 return response.data;
             })

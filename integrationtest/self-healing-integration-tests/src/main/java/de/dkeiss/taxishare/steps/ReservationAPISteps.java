@@ -1,7 +1,6 @@
 package de.dkeiss.taxishare.steps;
 
 import de.dkeiss.taxishare.steps.dto.Reservation;
-import de.dkeiss.taxishare.steps.dto.ReservationSearch;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,8 +13,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -34,17 +35,6 @@ public class ReservationAPISteps extends AbstractSteps {
                 .departure(entry.get("departure"))
                 .destination(entry.get("destination"))
                 .startTime(entry.get("startTime"))
-                .build();
-    }
-
-    @DataTableType
-    public ReservationSearch reservationSearchEntry(Map<String, String> entry) {
-        return ReservationSearch.builder()
-                .departure(entry.get("departure"))
-                .destination(entry.get("destination"))
-                .date(entry.get("date"))
-                .earliestStartTime(entry.get("earliestStartTime"))
-                .latestStartTime(entry.get("latestStartTime"))
                 .build();
     }
 
@@ -106,17 +96,22 @@ public class ReservationAPISteps extends AbstractSteps {
                 .contentType(ContentType.JSON)
                 .when()
                 .pathParam("reservationId", scenarioStore.getReservation().id())
-                .post("{reservationId}/join");
+                .put("{reservationId}/join");
     }
 
     @When("the user searches for reservations")
-    public void theUserSearchesForReservations(List<ReservationSearch> reservationSearches) {
-        ReservationSearch reservationSearch = reservationSearches.getFirst();
+    public void theUserSearchesForReservations(List<Map<String, String>> reservationSearches) {
+        Map<String, String> encodedParams = reservationSearches.getFirst().entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> Base64.getEncoder().encodeToString(entry.getValue().getBytes())
+                ));
+
         createRequest()
                 .auth().oauth2(scenarioStore.getJwtToken())
-                .body(reservationSearch)
+                .params(encodedParams)
                 .when()
-                .post("/api/reservations/search");
+                .get("/api/reservations");
 
     }
 
@@ -127,13 +122,6 @@ public class ReservationAPISteps extends AbstractSteps {
                 .baseUri(taxiShareBackendUrl)
                 .basePath("api/reservations")
                 .auth().oauth2(scenarioStore.getJwtToken())
-                .body(ReservationSearch.builder()
-                        .departure("Station A")
-                        .destination("Station B")
-                        .date("2024-11-07")
-                        .earliestStartTime("09:00")
-                        .latestStartTime("11:00")
-                        .build())
                 .when()
                 .pathParam("reservationId", scenarioStore.getReservation().id())
                 .get("{reservationId}/updates")
