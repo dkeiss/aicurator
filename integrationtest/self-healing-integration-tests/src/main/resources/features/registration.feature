@@ -1,7 +1,7 @@
 Feature: Registration
-  As a student,
-  I would like to explore the healing capabilities of AiCurator and Healenium using a realistic registration scenario
-  to determine if their use could be beneficial in practice.
+  As a user
+  I would like to register at the website,
+  to make reservations for shared taxis.
 
   Background:
     Given self-healing for locators is enabled
