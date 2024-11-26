@@ -1,6 +1,6 @@
 Feature: Reservation
   As a logged-in user,
-  I would like to be able to make reservations for collective tickets on certain routes during specific time periods
+  I would like to be able to make reservations for shared tickets on certain routes during specific time periods
   in order to take advantage of any discounts.
 
   Background:
