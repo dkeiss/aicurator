@@ -23,7 +23,7 @@ public class PromptClient {
 
         log.info("Prompt: {}", prompt);
         ChatResponse chatResponse = chatClient.prompt(prompt).call().chatResponse();
-        String content = chatResponse.getResult().getOutput().getContent();
+        String content = chatResponse.getResult().getOutput().getText();
         log.info("Prompt Response: {}", content);
 
         promptCache.put(prompt, content);
