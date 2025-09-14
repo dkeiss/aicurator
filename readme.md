@@ -69,3 +69,7 @@ test code. This extended context allows the LLM to generate a pull request for t
    be used to create a pull request.
 
 ![aicurator-flow.png](integrationtest/self-healing-integration-tests/doc/aicurator-flow.png)
+
+# Paper
+
+My research on self-healing in Selenium Automation can be found here: [Self-Healing in Selenium Automation_Daniel_Keiss.pdf](paper/Self-Healing%20in%20Selenium%20Automation_Daniel_Keiss.pdf).
