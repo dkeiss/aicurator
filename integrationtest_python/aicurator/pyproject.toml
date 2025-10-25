@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aicurator-python"
+version = "0.1.0"
+description = "Python port of the AiCurator self-healing integration test toolkit using Behave, Selenium, and ChatGPT."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  {name = "AiCurator Team"}
+]
+dependencies = [
+  "behave>=1.2.6",
+  "selenium>=4.20.0",
+  "openai>=1.59.7",
+  "tenacity>=8.2.3",
+  "pydantic>=2.8.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2.0",
+  "black>=24.4.0",
+  "mypy>=1.10.0"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["aicurator"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+aicurator = ["resources/*.st"]
