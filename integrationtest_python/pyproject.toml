@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=65.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "self-healing-integration-tests-python"
+version = "0.1.0"
+description = "Self-healing integration tests for TaxiShare using Behave, Selenium, and ChatGPT"
+authors = [
+  {name = "AI Curator"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "behave>=1.2.6",
+  "selenium>=4.18.0",
+  "webdriver-manager>=4.0.1",
+  "requests>=2.31.0",
+  "python-dotenv>=1.0.1",
+  "openai>=1.12.0",
+  "tenacity>=8.2.3",
+  "beautifulsoup4>=4.12.3",
+  "Faker>=22.5.1"
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.8.0",
+  "ruff>=0.3.5"
+]
+
+[tool.behave.userdata]
+step_healing_enabled = "true"
