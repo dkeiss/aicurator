@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Optional
 
@@ -11,6 +12,16 @@ from aicurator.behave.step_prompt_creator import StepPromptCreator, StepFailureC
 from aicurator.config.chat_client import ChatClient, ChatMessage
 from aicurator.config.prompt_cache import PromptCache
 from aicurator.selenium.locator_prompt_creator import LocatorPromptCreator, LocatorContext
+
+
+_BODY_PATTERN = re.compile(r"<body\b[^>]*>.*</body>", flags=re.IGNORECASE | re.DOTALL)
+
+
+def _extract_html_body(html: str) -> str:
+    """Return only the ``<body>`` section of the provided HTML."""
+
+    match = _BODY_PATTERN.search(html or "")
+    return match.group(0) if match else html
 
 
 @dataclass
@@ -71,7 +82,7 @@ class AutoHealer:
     @staticmethod
     def _build_locator_context(behave_context, step_context: StepFailureContext) -> LocatorContext:
         browser = getattr(behave_context, "browser", None)
-        html_body = getattr(browser, "page_source", "") if browser else ""
+        html_body = _extract_html_body(getattr(browser, "page_source", "")) if browser else ""
         page_source_code = getattr(behave_context, "page_object_source", "")
         call_method_page = getattr(behave_context, "page_object_method", step_context.method_name)
         steps_source_code = step_context.source_code or ""
