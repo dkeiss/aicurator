@@ -19,6 +19,7 @@ def before_all(context) -> None:
 
 
 def before_scenario(context, scenario) -> None:
+    context.scenario = scenario
     context.store = ScenarioStore()
     context.http_client = HttpClient(context.settings.backend_url)
     context.healing_results = []
@@ -41,4 +42,3 @@ def after_scenario(context, scenario) -> None:
     context.browser_manager.quit()
     if hasattr(context, "http_client"):
         context.http_client.close()
-
