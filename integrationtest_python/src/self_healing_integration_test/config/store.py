@@ -8,7 +8,6 @@ from typing import Iterable, Optional
 
 from self_healing_integration_test.config.data import Reservation, User
 
-
 class HealingApproach(str, Enum):
     AICURATOR = "aicurator"
     HEALENIUM = "healenium"

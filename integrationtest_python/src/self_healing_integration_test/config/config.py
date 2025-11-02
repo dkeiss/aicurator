@@ -20,7 +20,7 @@ class Settings:
     selenium_remote_url: str | None = _env("SELENIUM_REMOTE_URL")
     selenium_browser: str = _env("SELENIUM_BROWSER", "chrome")
     step_healing_enabled: bool = _env("STEP_HEALING_ENABLED", "false").lower() == "true"
-
+    healing_approach: str = _env("HEALING_APPROACH", "aicurator")
 
 def load_settings() -> Settings:
     """Load settings from the process environment."""
