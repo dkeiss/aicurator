@@ -3,8 +3,6 @@ package de.dkeiss.aicurator.config;
 import org.springframework.ai.anthropic.AnthropicChatModel;
 import org.springframework.ai.anthropic.AnthropicChatOptions;
 import org.springframework.ai.anthropic.api.AnthropicApi;
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
@@ -13,10 +11,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
+import org.springframework.ai.chat.client.ChatClient;
 
 import java.util.Map;
 
-import static org.springframework.ai.anthropic.api.AnthropicApi.ChatModel.CLAUDE_3_5_SONNET;
+import static org.springframework.ai.anthropic.api.AnthropicApi.ChatModel.CLAUDE_3_7_SONNET;
 
 @Configuration
 public class ChatClientConfig {
@@ -25,12 +24,14 @@ public class ChatClientConfig {
     @Profile({"default", "claude3"})
     public ChatClient claude3() {
         AnthropicChatOptions chatOptions = AnthropicChatOptions.builder()
-                .model(CLAUDE_3_5_SONNET)
+                .model(CLAUDE_3_7_SONNET)
                 .maxTokens(4000)
                 .temperature(0.4)
                 .build();
         AnthropicChatModel chatModel = AnthropicChatModel.builder()
-                .anthropicApi(new AnthropicApi(System.getenv("ANTHROPIC_KEY")))
+                .anthropicApi(AnthropicApi.builder()
+                        .apiKey(System.getenv("ANTHROPIC_KEY"))
+                        .build())
                 .defaultOptions(chatOptions)
                 .build();
         return ChatClient.builder(chatModel).build();
