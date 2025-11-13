@@ -15,14 +15,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>21</java.version>
-		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
 
 		<aicurator.version>1.0-SNAPSHOT</aicurator.version>
-		<webdrivermanager.version>6.0.0</webdrivermanager.version>
-		<restassured.version>5.5.1</restassured.version>
+		<webdrivermanager.version>6.3.2</webdrivermanager.version>
+		<restassured.version>5.5.6</restassured.version>
 		<javafaker.version>1.0.2</javafaker.version>
-		<healenium-web.version>3.5.4</healenium-web.version>
-		<github-api.version>1.327</github-api.version>
+		<healenium-web.version>3.5.7</healenium-web.version>
+		<github-api.version>1.330</github-api.version>
 	</properties>
 
 	<dependencies>
