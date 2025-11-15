@@ -1,111 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-        <parent>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>3.3.5</version>
-                <relativePath/>
-        </parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.7</version>
+        <relativePath/>
+    </parent>
 
-        <groupId>de.dkeiss</groupId>
-        <artifactId>aicurator</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <packaging>jar</packaging>
+    <groupId>de.dkeiss</groupId>
+    <artifactId>aicurator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-        <name>AiCurator</name>
-        <description>Auto-healing and merge requests for integration tests based on Cucumber and Selenium.</description>
+    <name>AiCurator</name>
+    <description>Auto-healing and merge requests for integration tests based on Cucumber and Selenium.</description>
 
-        <properties>
-                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-                <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-                <java.version>21</java.version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>21</java.version>
 
-                <cucumber.version>7.21.1</cucumber.version>
-                <selenium-java.version>4.38.0</selenium-java.version>
-                <lombok.version>1.18.42</lombok.version>
-                <jsoup.version>1.21.2</jsoup.version>
-                <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
-                <spring-ai-bom.version>1.0.0</spring-ai-bom.version>
-        </properties>
+        <cucumber.version>7.31.0</cucumber.version>
+        <selenium-java.version>4.38.0</selenium-java.version>
+        <lombok.version>1.18.42</lombok.version>
+        <jsoup.version>1.21.2</jsoup.version>
+        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+        <spring-ai-bom.version>1.1.0</spring-ai-bom.version>
+    </properties>
 
-        <dependencyManagement>
-                <dependencies>
-                        <dependency>
-                                <groupId>org.springframework.ai</groupId>
-                                <artifactId>spring-ai-bom</artifactId>
-                                <version>${spring-ai-bom.version}</version>
-                                <type>pom</type>
-                                <scope>import</scope>
-                        </dependency>
-                </dependencies>
-        </dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>${cucumber.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-junit</artifactId>
-			<version>${cucumber.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-spring</artifactId>
-			<version>${cucumber.version}</version>
-		</dependency>
-                <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-test</artifactId>
-                </dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>${selenium-java.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${lombok.version}</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-anthropic</artifactId>
         </dependency>
-		<dependency>
-			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-starter-model-openai</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>${jsoup.version}</version>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-compiler-plugin</artifactId>
-                                <version>${maven-compiler-plugin.version}</version>
-                                <configuration>
-                                        <source>${java.version}</source>
-                                        <target>${java.version}</target>
-                                        <annotationProcessorPaths>
-                                                <path>
-                                                        <groupId>org.projectlombok</groupId>
-                                                        <artifactId>lombok</artifactId>
-                                                        <version>${lombok.version}</version>
-                                                </path>
-                                        </annotationProcessorPaths>
-                                </configuration>
-                        </plugin>
-                </plugins>
-        </build>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-openai</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
