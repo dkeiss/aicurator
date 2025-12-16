@@ -1,0 +1,6 @@
+apiVersion: v2
+name: aicurator-prototype
+version: 0.1.0
+appVersion: "0.1.0"
+description: "Minimal self-healing orchestration prototype with taxi app, selenium, n8n and agent gateway"
+type: application

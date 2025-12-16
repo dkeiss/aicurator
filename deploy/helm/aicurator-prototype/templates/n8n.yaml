@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: n8n
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: n8n
+  template:
+    metadata:
+      labels:
+        app: n8n
+        app.kubernetes.io/name: n8n
+    spec:
+      containers:
+        - name: n8n
+          image: {{ .Values.n8n.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: DB_TYPE
+              value: postgresdb
+            - name: DB_POSTGRESDB_HOST
+              value: postgres
+            - name: DB_POSTGRESDB_PORT
+              value: "5432"
+            - name: DB_POSTGRESDB_DATABASE
+              value: {{ .Values.n8n.database }}
+            - name: DB_POSTGRESDB_USER
+              value: {{ .Values.n8n.username }}
+            - name: DB_POSTGRESDB_PASSWORD
+              value: {{ .Values.n8n.password }}
+            - name: N8N_WEBHOOK_URL
+              value: http://n8n:{{ .Values.n8n.service.port }}/
+            - name: N8N_BASIC_AUTH_ACTIVE
+              value: "false"
+          ports:
+            - containerPort: {{ .Values.n8n.service.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: n8n
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: n8n
+spec:
+  selector:
+    app: n8n
+  ports:
+    - name: http
+      port: {{ .Values.n8n.service.port }}
+      targetPort: {{ .Values.n8n.service.port }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+        app.kubernetes.io/name: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: {{ .Values.n8n.postgresImage }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.n8n.username }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.n8n.password }}
+            - name: POSTGRES_DB
+              value: {{ .Values.n8n.database }}
+          ports:
+            - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - name: tcp
+      port: 5432
+      targetPort: 5432

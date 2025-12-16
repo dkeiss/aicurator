@@ -1,0 +1,53 @@
+{{- if .Values.agentGateway.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-gateway
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: agent-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agent-gateway
+  template:
+    metadata:
+      labels:
+        app: agent-gateway
+        app.kubernetes.io/name: agent-gateway
+    spec:
+      containers:
+        - name: agent-gateway
+          image: {{ .Values.agentGateway.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: OPENAI_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openai
+                  key: api-key
+            - name: OPENAI_MODEL
+              value: {{ .Values.openai.model | quote }}
+            - name: LLM_MOCK_ENABLED
+              value: {{ .Values.openai.mockEnabled | quote }}
+          ports:
+            - containerPort: {{ .Values.agentGateway.service.port }}
+          resources:
+{{- toYaml .Values.agentGateway.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agent-gateway
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: agent-gateway
+spec:
+  selector:
+    app: agent-gateway
+  ports:
+    - name: http
+      port: {{ .Values.agentGateway.service.port }}
+      targetPort: {{ .Values.agentGateway.service.port }}
+{{- end }}
