@@ -55,6 +55,7 @@ public class LocatorHealer {
 
     private Optional<By> constructLocator(String fixedLocator) {
         if (fixedLocator.startsWith("By.")) {
+            fixedLocator = fixedLocator.replace("'", "\"");
             return Optional.of(createBy(fixedLocator));
         }
         return Optional.empty();

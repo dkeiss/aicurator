@@ -19,7 +19,7 @@
 
 		<aicurator.version>1.0-SNAPSHOT</aicurator.version>
 		<webdrivermanager.version>6.3.3</webdrivermanager.version>
-		<restassured.version>5.5.6</restassured.version>
+		<restassured.version>6.0.0</restassured.version>
 		<javafaker.version>1.0.2</javafaker.version>
 		<healenium-web.version>3.5.7</healenium-web.version>
 		<github-api.version>1.330</github-api.version>
