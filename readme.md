@@ -1,4 +1,4 @@
-This project compares the Selenium self Healing approach of Healenium with the AI-based approach of AICurator. The
+This project compares the Selenium self-Healing approach of Healenium with the AI-based approach of AICurator. The
 comparison is based on a sample web application that requires healing for different versions of the frontend page. The
 healing process is repeatable, allowing AICurator and Healenium to be compared.
 
@@ -10,7 +10,9 @@ To use AICurator, you need one of the following:
    `export ANTHROPIC_KEY=your_claude_3_key`.
 2. **ChatGPT Key**: Set the environment variable
    `export OPENAI_KEY=your_chatgpt_key`.
-3. **Local Mixtral Instance**: Start Mixtral via **LM-Studio** before running
+2. **Mistral Key**: Set the environment variable
+   `export MISTAL_KEY=your_mistral_key`.
+3. **Local Devstral Instance**: Start Devstral via **LM-Studio** before running
    AICurator.
 
 AICurator uses **Claude 3** by default.
