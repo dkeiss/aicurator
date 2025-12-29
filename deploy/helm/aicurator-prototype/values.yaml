@@ -1,0 +1,50 @@
+namespace: aicurator
+imagePullPolicy: IfNotPresent
+
+backend:
+  image: taxishare-backend:latest
+  replicaCount: 1
+  service:
+    port: 8080
+  resources: {}
+
+frontend:
+  image: taxishare-frontend:latest
+  replicaCount: 1
+  service:
+    port: 80
+  resources: {}
+  uiVariant: v1
+
+selenium:
+  image: selenium/standalone-chrome:latest
+  service:
+    port: 4444
+
+agentGateway:
+  enabled: true
+  image: agent-gateway:latest
+  service:
+    port: 8082
+  resources: {}
+
+n8n:
+  image: n8nio/n8n:1.73.1
+  postgresImage: postgres:16
+  username: n8n
+  password: n8n
+  database: n8n
+  service:
+    port: 5678
+
+openai:
+  apiKey: ""
+  model: gpt-4o-mini
+  mockEnabled: true
+
+runner:
+  enabled: true
+  image: self-healing-tests:latest
+  baseUrlFrontend: http://frontend
+  baseUrlBackend: http://backend:8080
+  remoteWebdriverUrl: http://selenium:4444/wd/hub

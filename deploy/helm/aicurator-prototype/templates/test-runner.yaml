@@ -1,0 +1,32 @@
+{{- if .Values.runner.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-runner
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: test-runner
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app: test-runner
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: test-runner
+          image: {{ .Values.runner.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: BASE_URL
+              value: {{ .Values.runner.baseUrlFrontend | quote }}
+            - name: BACKEND_URL
+              value: {{ .Values.runner.baseUrlBackend | quote }}
+            - name: REMOTE_WEBDRIVER_URL
+              value: {{ .Values.runner.remoteWebdriverUrl | quote }}
+          args:
+            - "/bin/sh"
+            - "-c"
+            - "mvn -q test -DskipITs=false || mvn -q test -DskipITs=false"
+{{- end }}
