@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: selenium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium
+  template:
+    metadata:
+      labels:
+        app: selenium
+        app.kubernetes.io/name: selenium
+    spec:
+      containers:
+        - name: selenium
+          image: {{ .Values.selenium.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.selenium.service.port }}
+          env:
+            - name: SE_NODE_MAX_SESSIONS
+              value: "1"
+            - name: SE_NODE_OVERRIDE_MAX_SESSIONS
+              value: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: selenium
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: selenium
+spec:
+  selector:
+    app: selenium
+  ports:
+    - name: http
+      port: {{ .Values.selenium.service.port }}
+      targetPort: {{ .Values.selenium.service.port }}

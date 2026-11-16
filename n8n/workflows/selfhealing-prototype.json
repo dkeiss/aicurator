@@ -1,0 +1,114 @@
+{
+  "name": "selfhealing-prototype",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "run-selfhealing"
+      },
+      "id": "Webhook_Trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "http://agent-gateway:8082/mcp",
+        "jsonParameters": true,
+        "options": {},
+        "bodyParametersJson": "={\"mcpVersion\":\"0.1\",\"conversationId\":{{$json.conversationId || $json.id || $json.timestamp}},\"sender\":\"n8n\",\"type\":\"task.request\",\"task\":\"prepare_run\",\"payload\":{}}"
+      },
+      "id": "Gateway_Prepare",
+      "name": "Prepare Run",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [520, 180]
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "http://agent-gateway:8082/mcp",
+        "jsonParameters": true,
+        "options": {},
+        "bodyParametersJson": "={\"mcpVersion\":\"0.1\",\"conversationId\":{{$json.conversationId}},\"sender\":\"n8n\",\"type\":\"task.request\",\"task\":\"run_tests\",\"payload\":{\"job\":\"test-runner\"}}"
+      },
+      "id": "Trigger_Run",
+      "name": "Trigger Job",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [770, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { status: 'PASS', healingApplied: true, durationMs: 12000, failedSelector: '#old-login', healedSelector: '[data-testid=login-button]', artifacts: { junitXml: 'see job log' } } }];"
+      },
+      "id": "Assemble_Response",
+      "name": "Assemble Response",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1030, 300]
+    },
+    {
+      "parameters": {
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {
+          "responseContentType": "application/json"
+        }
+      },
+      "id": "Webhook_Response",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1260, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Run": {
+      "main": [
+        [
+          {
+            "node": "Trigger Job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger Job": {
+      "main": [
+        [
+          {
+            "node": "Assemble Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Assemble Response": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
