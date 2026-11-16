@@ -3,6 +3,12 @@ services:
     build: ./backend
     ports:
       - "8080:8080"
+    environment:
+      JWT_PRIVATE_KEY: file:/run/secrets/app.key
+      JWT_PUBLIC_KEY: file:/run/secrets/app.pub
+    volumes:
+      - ./secrets/app.key:/run/secrets/app.key:ro
+      - ./secrets/app.pub:/run/secrets/app.pub:ro
 
   frontend:
     build: ./frontend

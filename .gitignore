@@ -7,3 +7,4 @@
 **/pom.xml.versionsBackup
 **/package-lock.json
 **/yarn.lock
+/app/secrets/

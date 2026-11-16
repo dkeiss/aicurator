@@ -21,10 +21,22 @@ Alternatively, modify `ChatClientConfig.java`.
 
 ## Run the Demo Web Application
 
-Start the backend by running the `TaxiApplication` class.
-Start the frontend by running `npm start` in the `frontend` directory.
+The backend needs an RSA key pair for JWT signing. Generate it locally; keep it
+out of version control:
 
-Or just run the `docker-compose up` command in the root directory.
+```sh
+mkdir -p app/secrets
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out app/secrets/app.key
+openssl pkey -in app/secrets/app.key -pubout -out app/secrets/app.pub
+```
+
+Start the demo from the `app` directory with `docker compose up --build`. The
+compose file mounts the key pair into the backend container. For a direct
+backend run, set `JWT_PRIVATE_KEY` and `JWT_PUBLIC_KEY` to `file:` resource
+locations for the matching key files before starting the application.
+
+The previously committed signing key is compromised; rotate it anywhere it was
+used. Rotating the key pair invalidates JWTs signed with the old private key.
 
 ## Run the Self-Healing Integration Tests
 
